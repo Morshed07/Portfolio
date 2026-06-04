@@ -106,7 +106,7 @@ export default function Skills() {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="font-display font-bold text-3xl md:text-4xl text-white mb-3">
-            My <span className="text-accent">Skills</span>
+            Technical <span className="text-accent">Skills</span>
           </h2>
           <p className="text-muted font-body text-sm max-w-md mx-auto">
             Technologies and tools I work with to build scalable backend systems
