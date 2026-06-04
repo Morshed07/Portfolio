@@ -1,75 +1,123 @@
 "use client";
-import { Server, Layers, Database, Wrench, LucideIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import {
+  Server, Globe, Database, Container,
+  GitBranch, TestTube, Layers, Zap,
+  LucideIcon
+} from "lucide-react";
 
-interface SkillGroup {
-  category: string;
+interface Skill {
+  name: string;
   icon: LucideIcon;
-  skills: string[];
+  proficiency: number;
+  color: string;
 }
 
-const skillGroups: SkillGroup[] = [
-  {
-    category: "Backend",
-    icon: Server,
-    skills: ["Python", "Django", "DRF", "Microservices", "RESTful API", "JWT/OAuth2"],
-  },
-  {
-    category: "Frontend",
-    icon: Layers,
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-  },
-  {
-    category: "Data & Ops",
-    icon: Database,
-    skills: ["PostgreSQL", "Redis", "Celery", "Docker", "Nginx", "CI/CD"],
-  },
-  {
-    category: "Tools",
-    icon: Wrench,
-    skills: ["Git", "PyTest", "FFmpeg", "HLS Streaming", "RevenueCat", "WebSockets"],
-  },
+const skills: Skill[] = [
+  { name: "Python",       icon: Zap,       proficiency: 90, color: "#3b82f6" },
+  { name: "Django",       icon: Server,    proficiency: 88, color: "#22c55e" },
+  { name: "DRF",          icon: Globe,     proficiency: 85, color: "#f97316" },
+  { name: "PostgreSQL",   icon: Database,  proficiency: 80, color: "#a855f7" },
+  { name: "Redis",        icon: Zap,       proficiency: 75, color: "#ef4444" },
+  { name: "Docker",       icon: Container, proficiency: 72, color: "#06b6d4" },
+  { name: "React",        icon: Layers,    proficiency: 65, color: "#38bdf8" },
+  { name: "Next.js",      icon: GitBranch, proficiency: 60, color: "#e2e8f0" },
+  { name: "Celery",       icon: Zap,       proficiency: 78, color: "#facc15" },
+  { name: "Git",          icon: GitBranch, proficiency: 85, color: "#fb923c" },
+  { name: "PyTest",       icon: TestTube,  proficiency: 70, color: "#34d399" },
+  { name: "Tailwind CSS", icon: Layers,    proficiency: 68, color: "#7dd3fc" },
 ];
 
-export default function Skills() {
+function SkillCard({ skill, animate }: { skill: Skill; animate: boolean }) {
+  const Icon = skill.icon;
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!animate) return;
+    let start = 0;
+    const duration = 1000;
+    const step = Math.ceil(skill.proficiency / (duration / 16));
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= skill.proficiency) {
+        setCount(skill.proficiency);
+        clearInterval(timer);
+      } else {
+        setCount(start);
+      }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [animate, skill.proficiency]);
+
   return (
-    <section id="skills" className="py-20 border-t border-dark-border">
+    <div className="bg-dark-card border border-dark-border rounded-sm p-5 hover:border-white/10 transition-all duration-300 group">
+      {/* Icon + name */}
+      <div className="flex items-center gap-3 mb-4">
+        <div
+          className="w-9 h-9 rounded-sm flex items-center justify-center flex-shrink-0"
+          style={{ backgroundColor: `${skill.color}18`, border: `1px solid ${skill.color}30` }}
+        >
+          <Icon className="w-4 h-4" style={{ color: skill.color }} strokeWidth={1.5} />
+        </div>
+        <span className="font-display font-semibold text-white text-sm tracking-wide">
+          {skill.name}
+        </span>
+      </div>
+
+      {/* Proficiency label */}
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-xs font-mono text-muted">Proficiency</span>
+        <span className="text-xs font-mono font-semibold tabular-nums" style={{ color: skill.color }}>
+          {count}%
+        </span>
+      </div>
+
+      {/* Progress bar */}
+      <div className="h-1 w-full bg-dark-border rounded-full overflow-hidden">
+        <div
+          className="h-full rounded-full transition-all duration-1000 ease-out"
+          style={{
+            width: animate ? `${skill.proficiency}%` : "0%",
+            background: `linear-gradient(90deg, ${skill.color}99, ${skill.color})`,
+            transitionDelay: "0.1s",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default function Skills() {
+  const [animate, setAnimate] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setAnimate(true); },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section ref={sectionRef} id="skills" className="py-20 border-t border-dark-border">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center gap-3 mb-12">
-          <span className="inline-block w-8 h-0.5 bg-accent" />
-          <span className="text-accent font-mono text-sm tracking-widest uppercase">
-            Technical Skills
-          </span>
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h2 className="font-display font-bold text-3xl md:text-4xl text-white mb-3">
+            My <span className="text-accent">Skills</span>
+          </h2>
+          <p className="text-muted font-body text-sm max-w-md mx-auto">
+            Technologies and tools I work with to build scalable backend systems
+          </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {skillGroups.map((group, i) => {
-            const Icon = group.icon;
-            return (
-              <div
-                key={i}
-                className="bg-dark-card border border-dark-border rounded-sm p-6 hover:border-accent/30 transition-all duration-300 group"
-              >
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-8 h-8 rounded-sm bg-dark border border-dark-border flex items-center justify-center group-hover:border-accent/30 group-hover:bg-accent/5 transition-all duration-200">
-                    <Icon className="w-4 h-4 text-accent" strokeWidth={1.5} />
-                  </div>
-                  <h3 className="font-display font-semibold text-white text-sm uppercase tracking-wide">
-                    {group.category}
-                  </h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {group.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="text-xs font-mono text-muted bg-dark border border-dark-border px-2.5 py-1 rounded-sm group-hover:border-accent/20 transition-colors duration-200"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+        {/* Grid */}
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {skills.map((skill, i) => (
+            <SkillCard key={i} skill={skill} animate={animate} />
+          ))}
         </div>
       </div>
     </section>
