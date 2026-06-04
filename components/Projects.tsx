@@ -1,4 +1,5 @@
 "use client";
+import { ShoppingCart } from "lucide-react";
 
 interface Project {
   name: string;
@@ -168,18 +169,16 @@ export default function Projects() {
                       </pre>
                     </div>
                   ) : (
-                    <div className="h-52 flex items-center justify-center bg-gradient-to-br from-dark-card to-dark relative overflow-hidden">
-                      <div className="absolute inset-0 opacity-10"
-                        style={{
-                          backgroundImage: `radial-gradient(circle at 50% 50%, #FF4500, transparent 70%)`,
-                        }}
-                      />
-                      <div className="text-center z-10">
-                        <div className="text-5xl mb-3">🏥</div>
-                        <p className="font-display font-semibold text-white text-lg">
-                          {project.name}
-                        </p>
-                        <p className="text-muted text-sm">{project.subtitle}</p>
+                    <div className="h-52 flex items-center justify-center bg-dark relative overflow-hidden">
+                      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(255,69,0,0.07), transparent 70%)" }} />
+                      <div className="relative z-10 flex flex-col items-center gap-4">
+                        <div className="w-16 h-16 rounded-sm bg-dark-card border border-accent/20 flex items-center justify-center">
+                          <ShoppingCart className="w-7 h-7 text-accent" strokeWidth={1.5} />
+                        </div>
+                        <div className="text-center">
+                          <p className="font-display font-semibold text-white">{project.name}</p>
+                          <p className="text-muted text-xs font-mono mt-1">{project.subtitle}</p>
+                        </div>
                       </div>
                     </div>
                   )}
