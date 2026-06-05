@@ -31,17 +31,12 @@ const experiences = [
 export default function Experience() {
   return (
     <section id="experience" className="py-20 relative">
-      {/* Restored the wrapper div for proper layout and valid JSX */}
       <div className="max-w-6xl mx-auto px-6">
-        
-        {/* Section header */}
-        <div className="text-center mb-12">
-          <h2 className="font-display font-bold text-3xl md:text-4xl text-white mb-3">
-            Professional <span className="text-accent">Experience</span>
-          </h2>
-          <p className="text-muted font-body text-sm max-w-md mx-auto">
-            Here's a look through my professional experience
-          </p>
+        <div className="flex items-center gap-3 mb-12">
+          <span className="inline-block w-8 h-0.5 bg-accent" />
+          <span className="text-accent font-mono text-sm tracking-widest uppercase">
+            Experience
+          </span>
         </div>
 
         <div className="relative">
