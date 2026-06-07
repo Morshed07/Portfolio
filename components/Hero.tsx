@@ -36,7 +36,8 @@ export default function Hero() {
             <span className="text-accent">.</span>
             <br />
             I&apos;m{" "}
-            <span className="text-gradient">Morshed</span>
+            <span className="text-gradient">Morshed Nayeem</span>
+            <span className="sr-only"> — Abdullah Al Morshed Nayeem, Backend Developer from Dhaka, Bangladesh</span>
           </h1>
 
           <h2 className="font-display text-2xl md:text-3xl font-semibold text-white/80 mb-6">
@@ -44,7 +45,7 @@ export default function Hero() {
           </h2>
 
           <p className="text-muted font-body text-base leading-relaxed max-w-md mb-8">
-            I build scalable, high-performance backend systems with Django & Python. 
+            I build scalable, high-performance backend systems with Django &amp; Python. 
             Passionate about clean API design, microservices, and shipping products 
             that users actually love.
           </p>

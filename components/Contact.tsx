@@ -66,7 +66,7 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-28 relative overflow-hidden">
+    <section id="contact" className="py-28 relative overflow-hidden" aria-label="Contact Morshed Nayeem">
       <div className="absolute right-0 top-1/2 w-80 h-80 bg-accent/8 rounded-full blur-[100px] pointer-events-none -translate-y-1/2" />
 
       <div className="max-w-6xl mx-auto px-6">

@@ -69,7 +69,7 @@ def process_video(video_id: str):
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-28 relative">
+    <section id="projects" className="py-28 relative" aria-label="Projects by Morshed Nayeem">
       {/* Background Accent */}
       <div className="absolute left-0 top-1/2 w-64 h-64 bg-accent/5 rounded-full blur-[80px] pointer-events-none" />
 
