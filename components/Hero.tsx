@@ -49,19 +49,27 @@ export default function Hero() {
             that users actually love.
           </p>
 
-          <div className="flex flex-wrap gap-4 mb-10">
+          <div className="flex flex-wrap gap-4 mb-10 relative z-10">
             <a
               href="#contact"
               className="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white font-medium px-6 py-3 rounded-sm transition-all duration-200 hover:translate-y-[-2px] hover:shadow-lg hover:shadow-accent/20"
             >
-              Got a project?
+              Let's Work Together?
             </a>
-            <a
-              href="#about"
-              className="inline-flex items-center gap-2 border border-dark-border hover:border-white/30 text-white font-medium px-6 py-3 rounded-sm transition-all duration-200"
+            <button
+              type="button"
+              onClick={() => {
+                const link = document.createElement("a");
+                link.href = "/Morshed_Nayeem_s_CV.pdf";
+                link.download = "Morshed_Nayeem_s_CV.pdf";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
+              className="inline-flex items-center gap-2 border border-dark-border hover:border-white/30 text-white font-medium px-6 py-3 rounded-sm transition-all duration-200 cursor-pointer"
             >
               My resume
-            </a>
+            </button>
           </div>
 
           {/* Skill tags */}
