@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Abdullah Al Morshed Nayeem | Backend Developer",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/favicon.ico",
   },
   description:
     "Backend Developer specializing in Django, DRF, Python, and scalable microservices.",
