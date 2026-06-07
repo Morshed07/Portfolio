@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://morshednayeem.dev/sitemap.xml", // ← Replace with your actual domain
+    sitemap: "https://morshed-nayeem.vercel.app/sitemap.xml",
   };
 }
