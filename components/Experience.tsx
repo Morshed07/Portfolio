@@ -4,7 +4,7 @@ const experiences = [
   {
     role: "Junior Backend Developer",
     company: "Join Venture AI",
-    period: "Nov 2025 – Present",
+    period: "Jul 2025 – Present",
     current: true,
     bullets: [
       "Architected core backend for an AI-driven watch verification tool, stable under 500+ concurrent users.",
@@ -17,7 +17,7 @@ const experiences = [
   {
     role: "Junior Backend Developer",
     company: "DevXhub",
-    period: "Sep 2024 – May 2025",
+    period: "Jun 2024 – May 2025",
     current: false,
     bullets: [
       "Built and maintained Django REST backends for 3 distinct client products.",
