@@ -15,12 +15,49 @@ interface Project {
 
 const projects: Project[] = [
   {
+    name: "DentaShift",
+    subtitle: "Dental Workforce & Shift Management Platform",
+    tags: [
+      "Django",
+      "DRF",
+      "Stripe Connect",
+      "PostgreSQL",
+      "Redis",
+      "Celery",
+      "Docker",
+    ],
+    description:
+      "Architected a dental workforce platform connecting practices with locum nurses and hygienists. Built complex shift booking, timesheet, cancellation, and Stripe Connect payment flows with automated transfers, refunds, and platform fee management.",
+    highlight: "Stripe Connect payment architecture",
+    isCode: true,
+    codeSnippet: `# Stripe Connect — separate charges & transfers
+@shared_task
+def process_locum_payment(timesheet_id: int):
+    timesheet = Timesheet.objects.get(
+        pk=timesheet_id
+    )
+
+    transfer = stripe.Transfer.create(
+        amount=timesheet.locum_pay_pence,
+        currency="gbp",
+        destination=(
+            timesheet.locum.stripe_account_id
+        ),
+        transfer_group=f"SHIFT_{timesheet.shift_id}",
+    )
+
+    timesheet.transfer_id = transfer.id
+    timesheet.payment_status = "paid"
+    timesheet.save()`,
+  },
+  {
     name: "ChronoVerify",
     subtitle: "AI Watch Authentication",
     tags: ["Django", "Redis", "Celery", "RevenueCat"],
     description:
       "Architected an AI-driven watch verification tool maintaining stability under 500+ concurrent users with 99.9% API uptime. Decoupled AI analysis from the request cycle for instant responses.",
-    liveUrl: "https://play.google.com/store/apps/details?id=com.chronoverify.app&pcampaignid=web_share",
+    liveUrl:
+      "https://play.google.com/store/apps/details?id=com.chronoverify.app&pcampaignid=web_share",
     highlight: "10,000+ monthly checks",
     isCode: true,
     codeSnippet: `# Celery task — async AI inference
@@ -28,13 +65,24 @@ const projects: Project[] = [
 def verify_watch(self, image_id: str):
     img = fetch_image(image_id)
     result = ai_model.predict(img)
-    cache.set(f"result:{image_id}", result)
+
+    cache.set(
+        f"result:{image_id}",
+        result
+    )
+
     return result`,
   },
   {
     name: "DramaTube",
     subtitle: "Video Streaming Platform",
-    tags: ["Django", "Redis", "FFmpeg", "HLS", "Celery"],
+    tags: [
+      "Django",
+      "Redis",
+      "FFmpeg",
+      "HLS",
+      "Celery",
+    ],
     description:
       "Implemented HLS-based adaptive streaming for fast video starts and quality adjustments based on connection speed. Built a background system handling 300+ daily video processing tasks.",
     liveUrl: "#",
@@ -43,15 +91,17 @@ def verify_watch(self, image_id: str):
     codeSnippet: `# HLS adaptive streaming pipeline
 @shared_task
 def process_video(video_id: str):
-    video = Video.objects.get(pk=video_id)
+    video = Video.objects.get(
+        pk=video_id
+    )
 
-    ffmpeg.input(video.raw_path)\
-          .output(
-              f"{video.id}/stream.m3u8",
-              format="hls",
-              hls_time=4
-          )\
-          .run(overwrite_output=True)
+    ffmpeg.input(video.raw_path)\\
+        .output(
+            f"{video.id}/stream.m3u8",
+            format="hls",
+            hls_time=4
+        )\\
+        .run(overwrite_output=True)
 
     video.status = "ready"
     video.save()`,
@@ -59,7 +109,12 @@ def process_video(video_id: str):
   {
     name: "Reactides",
     subtitle: "Healthcare E-commerce",
-    tags: ["Django", "WebSockets", "PostgreSQL", "Signals"],
+    tags: [
+      "Django",
+      "WebSockets",
+      "PostgreSQL",
+      "Signals",
+    ],
     description:
       "Built the full cart system using session-based storage with payment integration. Hooked into Django signals to automatically trigger order notifications on status changes.",
     liveUrl: "https://reactides.com",
@@ -69,7 +124,11 @@ def process_video(video_id: str):
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-28 relative" aria-label="Projects by Morshed Nayeem">
+    <section
+      id="projects"
+      className="py-28 relative"
+      aria-label="Projects by Morshed Nayeem"
+    >
       {/* Background Accent */}
       <div className="absolute left-0 top-1/2 w-64 h-64 bg-accent/5 rounded-full blur-[80px] pointer-events-none" />
 
@@ -78,9 +137,11 @@ export default function Projects() {
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-4">
             <span className="w-8 h-px bg-accent" />
+
             <span className="text-accent font-mono text-sm tracking-widest uppercase">
               Work
             </span>
+
             <span className="w-8 h-px bg-accent" />
           </div>
 
@@ -97,11 +158,19 @@ export default function Projects() {
             const card = (
               <div
                 className={`grid md:grid-cols-2 gap-10 items-center group ${
-                  i % 2 === 1 ? "md:[direction:rtl]" : ""
+                  i % 2 === 1
+                    ? "md:[direction:rtl]"
+                    : ""
                 }`}
               >
-                {/* Left */}
-                <div className={i % 2 === 1 ? "[direction:ltr]" : ""}>
+                {/* Project Details */}
+                <div
+                  className={
+                    i % 2 === 1
+                      ? "[direction:ltr]"
+                      : ""
+                  }
+                >
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tags.map((tag) => (
                       <span
@@ -127,6 +196,7 @@ export default function Projects() {
 
                   <div className="flex items-center gap-2 mb-6">
                     <span className="w-2 h-2 bg-accent rounded-full" />
+
                     <span className="text-white text-sm font-medium">
                       {project.highlight}
                     </span>
@@ -134,28 +204,43 @@ export default function Projects() {
 
                   <div className="inline-flex items-center gap-2 text-accent font-mono text-sm">
                     <span>Explore Project</span>
+
                     <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
                       ↗
                     </span>
                   </div>
                 </div>
 
-                {/* Right */}
-                <div className={i % 2 === 1 ? "[direction:ltr]" : ""}>
+                {/* Project Preview */}
+                <div
+                  className={
+                    i % 2 === 1
+                      ? "[direction:ltr]"
+                      : ""
+                  }
+                >
                   <div className="bg-dark-card border border-dark-border rounded-lg overflow-hidden transition-all duration-300 group-hover:border-accent/40 group-hover:-translate-y-1">
-                    {project.isCode && project.codeSnippet ? (
+                    {project.isCode &&
+                    project.codeSnippet ? (
                       <div className="p-6">
+                        {/* Code Header */}
                         <div className="flex items-center gap-2 mb-4">
                           <span className="w-3 h-3 rounded-full bg-red-500/70" />
+
                           <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
+
                           <span className="w-3 h-3 rounded-full bg-green-500/70" />
+
                           <span className="text-xs text-muted font-mono ml-2">
                             {project.name.toLowerCase()}.py
                           </span>
                         </div>
 
+                        {/* Code */}
                         <pre className="font-mono text-xs text-green-400/80 leading-relaxed overflow-x-auto">
-                          <code>{project.codeSnippet}</code>
+                          <code>
+                            {project.codeSnippet}
+                          </code>
                         </pre>
                       </div>
                     ) : (
@@ -204,7 +289,9 @@ export default function Projects() {
                 {card}
               </a>
             ) : (
-              <div key={project.name}>{card}</div>
+              <div key={project.name}>
+                {card}
+              </div>
             );
           })}
         </div>
