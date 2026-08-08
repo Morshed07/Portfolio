@@ -2,16 +2,27 @@
 
 const experiences = [
   {
-    role: "Junior Backend Developer",
+    role: "Backend Developer",
     company: "Join Venture AI",
-    period: "Jul 2025 – Present",
+    period: "Jul 2026 – Present",
     current: true,
     bullets: [
-      "Architected core backend for an AI-driven watch verification tool, stable under 500+ concurrent users.",
-      "Developed image processing pipeline maintaining 99.9% production API uptime.",
-      "Offloaded heavy AI inference to Celery workers for significantly faster user experience.",
-      "Configured RevenueCat to manage full subscription lifecycle for 500+ paying users.",
-      "Reworked video delivery to adaptive HLS streaming, cutting initial load times by 35%.",
+      "Promoted to Backend Developer in July 2026 to lead system architecture and core API infrastructure.",
+      "Architected core backend for an AI watch verification platform, maintaining 99.9% API uptime under 500+ concurrent users.",
+      "Engineered asynchronous task processing with Celery worker pools to offload heavy AI inference workflows.",
+      "Managed end-to-end subscription lifecycles and payment webhooks via RevenueCat for 500+ active paying subscribers.",
+      "Implemented adaptive HLS video streaming pipelines, cutting initial playback load times by 35%.",
+    ],
+  },
+  {
+    role: "Junior Backend Developer",
+    company: "Join Venture AI",
+    period: "Jul 2025 – Jun 2026",
+    current: false,
+    bullets: [
+      "Developed core RESTful services and relational database schemas using Django REST Framework.",
+      "Integrated Redis caching strategies and background worker pipelines for asynchronous job handling.",
+      "Collaborated with cross-functional engineering teams to define clean, typed API contracts.",
     ],
   },
   {
@@ -20,10 +31,10 @@ const experiences = [
     period: "Jun 2024 – May 2025",
     current: false,
     bullets: [
-      "Built and maintained Django REST backends for 3 distinct client products.",
-      "Collaborated with frontend teams to define clean API contracts, accelerating feature delivery.",
-      "Hardened security across 50+ endpoints using role-based permissions and strict token validation.",
-      "Optimized slow database queries via targeted indexing, reducing average response times.",
+      "Engineered and maintained Django REST backends for 3 production client software products.",
+      "Hardened platform security across 50+ endpoints using strict role-based access control (RBAC) and JWT validation.",
+      "Optimized relational database queries via targeted indexing, substantially reducing average API response times.",
+      "Collaborated with frontend developers to accelerate feature delivery across multi-tenant applications.",
     ],
   },
 ];
